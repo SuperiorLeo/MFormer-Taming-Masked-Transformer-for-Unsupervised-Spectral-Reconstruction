@@ -98,40 +98,6 @@ class Conv2dLayer(nn.Module):
         return x
 
 
-class ResidualDenseBlock_5C(nn.Module):
-    def __init__(self, in_channels, latent_channels, kernel_size = 3, stride = 1, padding = 1, dilation = 1, pad_type = 'zero', activation = 'lrelu', norm = 'none', sn = False):
-        super(ResidualDenseBlock_5C, self).__init__()
-        # dense convolutions
-        self.conv1 = Conv2dLayer(in_channels, latent_channels, kernel_size, stride, padding, dilation, pad_type,
-                                 activation, norm, sn)
-        self.conv2 = Conv2dLayer(in_channels, latent_channels, kernel_size, stride, padding, dilation, pad_type,
-                                 activation, norm, sn)
-        self.conv3 = Conv2dLayer(in_channels, latent_channels, kernel_size, stride, padding, dilation, pad_type,
-                                 activation, norm, sn)
-        self.conv4 = Conv2dLayer(in_channels * 2, in_channels, kernel_size, stride, padding, dilation, pad_type,
-                                 activation, norm, sn)
-        self.conv5 = Conv2dLayer(in_channels * 2, in_channels, kernel_size, stride, padding, dilation, pad_type,
-                                 activation, norm, sn)
-        self.conv6 = Conv2dLayer(in_channels * 2, in_channels, kernel_size, stride, padding, dilation, pad_type,
-                                 activation, norm, sn)
-        # self.cspn2_guide = GMLayer(in_channels)
-        # self.cspn2 = Affinity_Propagate_Channel()
-        self.se1 = SELayer(in_channels)
-        self.se2 = SELayer(in_channels)
-
-    def forward(self, x):
-        x1 = self.conv1(x)
-        x2 = self.conv2(x1)
-        x3 = self.conv3(x2)
-        # guidance2 = self.cspn2_guide(x3)
-        # x3_2 = self.cspn2(guidance2, x3)
-        x3_2 = self.se1(x)
-        x4 = self.conv4(torch.cat((x3, x3_2), 1))
-        x5 = self.conv5(torch.cat((x2, x4), 1))
-        x6 = self.conv6(torch.cat((x1, x5), 1))+self.se2(x3_2)
-        return x6
-
-
 class MFormer(nn.Module):
     def __init__(self, inplanes=3, planes=31, channels=200, n_DRBs=8):
         super(MFormer, self).__init__()
@@ -436,7 +402,7 @@ if __name__ == "__main__":
     # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     input_tensor = torch.rand(1, 3, 64, 64)
     
-    model = MFormer(3, 31, 60, 8)
+    model = MFormer(3, 31, 48, 1)
     # model = nn.DataParallel(model).cuda()
     with torch.no_grad():
         output_tensor = model(input_tensor)
