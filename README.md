@@ -104,8 +104,6 @@ The data generated during training will be recorded in `/results/MFormer`.
 python test_model1.py
 ```
 - Download the model for NTIRE2020-CLEAN ( [Baidu Disk](https://pan.baidu.com/s/1DfNVHxuQlRmu-_xD8qOh1w ), code: `1234`))
-- Download the model for CAVE ( [Baidu Disk](https://pan.baidu.com/s/115_P5YExwQbyqcB1SLFeFQ ), code: `1234`))
-- Download the model for Harvard ( [Baidu Disk](https://pan.baidu.com/s/1JnqUCx5osHb12rQax8CLSg ), code: `1234`))
 
 ## Citation
 If you find this code helpful, please kindly cite:
