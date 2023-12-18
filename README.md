@@ -103,7 +103,7 @@ The data generated during training will be recorded in `/results/MFormer`.
 ```shell
 python test_model1.py
 ```
-- Download the model for NTIRE2020-CLEAN ( [Baidu Disk](https://pan.baidu.com/s/1DfNVHxuQlRmu-_xD8qOh1w ), code: `1234`))
+- Download the model for NTIRE2020-CLEAN ( [Baidu Disk](https://pan.baidu.com/s/1oRoPmK4rr6ILz1L25aOeww ), code: `0108`))
 
 ## Citation
 If you find this code helpful, please kindly cite:
